@@ -1,0 +1,61 @@
+{% extends 'website/dashboard/dashboard_base.html' %}
+
+{% block option-title %}
+    ADD NAVITEM
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-12">
+        <form class="form-horizontal" id="data-form">
+            <div class="form-group">
+                <label for="title" class="col-sm-3 col-sm-offset-2 control-label">标题：</label>
+                <div class="col-sm-3">
+                    <input type="text" id="title" name="title" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="url" class="col-sm-3 col-sm-offset-2 control-label">指向地址：</label>
+                <div class="col-sm-3">
+                    <input type="text" id="url" name="url" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="show_order" class="col-sm-3 col-sm-offset-2 control-label">展示顺序：</label>
+                <div class="col-sm-3">
+                    <input type="number" id="show_order" name="show_order" class="form-control">
+                </div>
+            </div>
+            <button class="btn btn-info" id="submit-btn">添加</button>
+            <input type="reset" name="reset" style="display: none;">
+        </form>
+    </div>
+    {% include 'utils/modal.html' %}
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $('#submit-btn').click(function (e) {
+            e.preventDefault();
+            if('' != $('#title').val()) {
+                $.ajax({
+                    type: "POST",
+                    dataType: 'json',
+                    data: $('#data-form').serializeArray(),
+                    url:'{% url "navbar-add" %}',
+                    success:function(data){
+                        var state = data.state;
+                        if(state == 'success'){
+                            showModal('success', "添加成功");
+                        } else {
+                            showModal('danger', "添加失败");
+                        }
+                        $('input[type=reset]').trigger('click');
+                    },
+                    error: function(data){
+                        console.log(data);
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,22 @@
+body {
+    background-color: #eeeeee;
+    font-family: "Segoe UI", "Microsoft YaHei UI", sans-serif, "Segoe MDL2 Assets", "Symbols";
+}
+
+.index-header {
+    background: url("/static/images/index_banner.jpg") no-repeat;
+    background-size: 100%;
+}
+
+.base-header {
+    height: 120px;
+    background: #18267d url('/static/images/headbg.jpg') no-repeat center;
+}
+
+.header-title {
+    margin-top: 40px;
+}
+
+.text-white {
+    color: white;
+}

@@ -1,0 +1,25 @@
+{% extends 'website/base_frame.html' %}
+
+{% block title %}{% endblock %}
+
+{% block external_head %}{% endblock %}
+
+{% block body %}
+
+{% include 'website/header.html' %}
+    <div class="container main-page">
+        {% block content %}{% endblock %}
+    </div>
+{% include 'website/footer.html' %}{% endblock %}
+
+{% block external_js %}
+<script type="text/javascript">
+    $(function(){
+            if ($('body').height() < 650)
+            {
+                $('.main-page').height(430);
+            }
+        })
+</script>
+{% block js %}{% endblock %}
+{% endblock %}

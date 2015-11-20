@@ -1,0 +1,22 @@
+{% extends 'website/base_frame.html' %}
+
+{% block title %}
+    {{ COMMUNITY_NAME }}
+{% endblock %}
+
+{% block body %}
+    <div class="jumbotron index-header text-white">
+        <div class="container text-center">
+            <h1>{{ COMMUNITY_NAME }}</h1>
+            <p>{{ COMMUNITY_DESCRIPTION }}</p>
+            <p><a class="btn btn-primary btn-lg" href="{% url 'home_page' %}" role="button">尽请阅览</a></p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block external_js %}
+    <script type="text/javascript">
+        $.cookie('has_viewed_index_page', 'True', {path: '/'});
+        $('.index-header').css('height', $(window).height()).css('margin-bottom', '0');
+    </script>
+{% endblock %}
