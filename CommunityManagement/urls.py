@@ -21,6 +21,7 @@ from django.conf import settings
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^navbar/', include('navbar.urls')),
+    url(r'^carousel/', include('carousel.urls')),
     url(r'', include('website.urls')),
 ]
 

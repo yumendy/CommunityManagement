@@ -5,8 +5,8 @@ from django.db import models
 class Carousel(models.Model):
     title = models.CharField(max_length=16, blank=True, null=True)
     summery = models.TextField(blank=True, null=True)
-    img = models.ImageField(upload_to='/carousel/image/%Y/%m/%d/')
-    target_url = models.URLField()
+    img = models.ImageField(upload_to='./carousel/image/%Y/%m/%d/')
+    target_url = models.URLField(blank=True, null=True)
     create_time = models.DateTimeField(auto_now_add=True)
     show_order = models.IntegerField(default=0)
     on_show = models.BooleanField(default=True)

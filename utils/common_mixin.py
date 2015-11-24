@@ -18,6 +18,7 @@ class AjaxableResponseMixin(BaseMixin):
             data = {
                 'state': 'error'
             }
+            print form.errors
             return JsonResponse(data, status=400)
         else:
             return response

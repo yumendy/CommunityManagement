@@ -1,0 +1,82 @@
+{% extends 'website/dashboard/dashboard_base.html' %}
+
+{% block option-title %}
+    添加轮播项
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-12">
+        <form class="form-horizontal" id="data-form" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title" class="col-sm-3 col-sm-offset-2 control-label">标题：</label>
+                <div class="col-sm-3">
+                    <input type="text" id="title" name="title" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="summery" class="col-sm-3 col-sm-offset-2 control-label">描述：</label>
+                <div class="col-sm-3">
+                    <textarea class="form-control" id="summery" rows="3" wrap="hard" name="summery"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="img" class="col-sm-3 col-sm-offset-2 control-label">轮播图片：</label>
+                <div class="col-sm-3">
+                    <input type="file" id="img" name="img" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="target_url" class="col-sm-3 col-sm-offset-2 control-label">链接：</label>
+                <div class="col-sm-3">
+                    <input type="text" id="target_url" name="target_url" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="show_order" class="col-sm-3 col-sm-offset-2 control-label">展示顺序：</label>
+                <div class="col-sm-3">
+                    <input type="number" id="show_order" name="show_order" class="form-control">
+                </div>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="on_show" value="True" checked>
+                展示
+              </label>
+                <label>
+                <input type="radio" name="on_show" value="">
+                不展示
+              </label>
+            </div>
+            <button class="btn btn-info" id="submit-btn">添加</button>
+            <input type="reset" name="reset" style="display: none;">
+        </form>
+    </div>
+    {% include 'utils/modal.html' %}
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $('#submit-btn').click(function(e){
+            e.preventDefault();
+            var options = {
+                type:"POST",
+                dataType:'json',
+                url:'{% url "carousel-add" %}',
+                success:function(data){
+                    var state = data.state;
+                        if(state == 'success'){
+                            showModal('success', "添加成功");
+                        } else {
+                            showModal('danger', "添加失败");
+                        }
+                        $('input[type=reset]').trigger('click');
+                },
+                error:function(data){
+                    console.log(data);
+                }
+            };
+            $('#data-form').ajaxSubmit(options);
+        });
+    </script>
+
+{% endblock %}
