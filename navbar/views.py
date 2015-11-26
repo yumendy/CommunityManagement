@@ -23,7 +23,7 @@ class NavbarListView(BaseMixin, ListView):
     context_object_name = 'navbar_list'
 
     def get_context_data(self, *args, **kwargs):
-        context = super(NavbarListView, self).get_context_data(**kwargs)
+        context = super(NavbarListView, self).get_context_data(*args, **kwargs)
         context['active_page'] = 'navbar-list'
         return context
 

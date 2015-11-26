@@ -41,6 +41,8 @@ INSTALLED_APPS = (
     'website',
     'navbar',
     'carousel',
+    'article',
+    'DjangoUeditor',
 )
 
 MIDDLEWARE_CLASSES = (

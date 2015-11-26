@@ -5,12 +5,12 @@
 {% block external_head %}{% endblock %}
 
 {% block body %}
-
 {% include 'website/header.html' %}
-    <div class="container main-page">
+    <div class="main-page">
         {% block content %}{% endblock %}
     </div>
-{% include 'website/footer.html' %}{% endblock %}
+{% include 'website/footer.html' %}
+{% endblock %}
 
 {% block external_js %}
 <script type="text/javascript">

@@ -1,7 +1,7 @@
 {% extends 'website/backend/settings/settings_base.html' %}
 
 {% block option-title %}
-    添加轮播项
+    更新轮播项
 {% endblock %}
 
 {% block content %}
@@ -10,45 +10,45 @@
             <div class="form-group">
                 <label for="title" class="col-sm-3 col-sm-offset-2 control-label">标题：</label>
                 <div class="col-sm-3">
-                    <input type="text" id="title" name="title" class="form-control" required>
+                    <input type="text" id="title" name="title" class="form-control" required value="carousel_item">
                 </div>
             </div>
             <div class="form-group">
                 <label for="summery" class="col-sm-3 col-sm-offset-2 control-label">描述：</label>
                 <div class="col-sm-3">
-                    <textarea class="form-control" id="summery" rows="3" wrap="hard" name="summery"></textarea>
+                    <textarea class="form-control" id="summery" rows="3" wrap="hard" name="summery">{{ carousel.summery }}</textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label for="img" class="col-sm-3 col-sm-offset-2 control-label">轮播图片：</label>
                 <div class="col-sm-3">
-                    <input type="file" id="img" name="img" class="form-control" required>
+                    <input type="file" id="img" name="img" class="form-control" value="{{ carousel.img }}">
+                    <span class="help-block" id="helpBlock">当前图片：<a href="{% url 'media' carousel.img %}">{% url 'media' carousel.img %}</a>,不做修改则上空留空。</span>
                 </div>
             </div>
             <div class="form-group">
                 <label for="target_url" class="col-sm-3 col-sm-offset-2 control-label">链接：</label>
                 <div class="col-sm-3">
-                    <input type="text" id="target_url" name="target_url" class="form-control">
+                    <input type="text" id="target_url" name="target_url" class="form-control" value="{{ carousel.target_url }}">
                 </div>
             </div>
             <div class="form-group">
                 <label for="show_order" class="col-sm-3 col-sm-offset-2 control-label">展示顺序：</label>
                 <div class="col-sm-3">
-                    <input type="number" id="show_order" name="show_order" class="form-control">
+                    <input type="number" id="show_order" name="show_order" class="form-control" value="{{ carousel.show_order }}">
                 </div>
             </div>
             <div class="radio">
-              <label>
-                <input type="radio" name="on_show" value="True" checked>
-                展示
-              </label>
                 <label>
-                <input type="radio" name="on_show" value="">
+                <input type="radio" name="on_show" value="True" {% if carousel.on_show %}checked{% endif %}>
+                展示
+                </label>
+                <label>
+                <input type="radio" name="on_show" value="" {% if not carousel.on_show %}checked{% endif %}>
                 不展示
-              </label>
+                </label>
             </div>
-            <button class="btn btn-info" id="submit-btn">添加</button>
-            <input type="reset" name="reset" style="display: none;">
+            <button class="btn btn-info" id="submit-btn">更新</button>
         </form>
     </div>
     {% include 'utils/modal.html' %}
@@ -61,15 +61,14 @@
             var options = {
                 type:"POST",
                 dataType:'json',
-                url:'{% url "carousel-add" %}',
+                url:'{% url 'carousel-update' carousel.pk %}',
                 success:function(data){
                     var state = data.state;
                         if(state == 'success'){
-                            showModal('success', "添加成功");
+                            showModal('success', "更新成功");
                         } else {
-                            showModal('danger', "添加失败");
+                            showModal('danger', "更新失败");
                         }
-                        $('input[type=reset]').trigger('click');
                 },
                 error:function(data){
                     console.log(data);

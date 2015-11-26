@@ -19,12 +19,32 @@ class CarouselCreateView(AjaxableResponseMixin, CreateView):
 
 
 class CarouselListView(BaseMixin, ListView):
-    pass
+    model = Carousel
+    context_object_name = 'carousel_list'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(CarouselListView, self).get_context_data(*args, **kwargs)
+        context['active_page'] = 'carousel-list'
+        return context
 
 
 class CarouselUpdateView(AjaxableResponseMixin, UpdateView):
-    pass
+    model = Carousel
+    context_object_name = 'carousel'
+    template_name_suffix = '_update_form'
+    success_url = reverse_lazy('carousel-list')
+    fields = ['title', 'summery', 'img', 'target_url', 'show_order', 'on_show']
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(CarouselUpdateView, self).get_context_data(*args, **kwargs)
+        context['active_page'] = 'carousel-update'
+        return context
 
 
 class CarouselDeleteView(AjaxableResponseMixin, DeleteView):
-    pass
+    model = Carousel
+    success_url = reverse_lazy('carousel-list')
+
+    def post(self, request, *args, **kwargs):
+        super(CarouselDeleteView, self).post(self, request, *args, **kwargs)
+        return JsonResponse({'state': 'success'})

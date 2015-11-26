@@ -20,3 +20,9 @@ body {
 .text-white {
     color: white;
 }
+
+.slider-img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+}
