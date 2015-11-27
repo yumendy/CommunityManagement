@@ -46,5 +46,5 @@ class NavbarDeleteView(AjaxableResponseMixin, DeleteView):
     success_url = reverse_lazy('navbar-list')
 
     def post(self, request, *args, **kwargs):
-        super(NavbarDeleteView, self).post(self, request, *args, **kwargs)
+        super(NavbarDeleteView, self).post(request, *args, **kwargs)
         return JsonResponse({'state': 'success'})

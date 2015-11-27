@@ -46,5 +46,5 @@ class CarouselDeleteView(AjaxableResponseMixin, DeleteView):
     success_url = reverse_lazy('carousel-list')
 
     def post(self, request, *args, **kwargs):
-        super(CarouselDeleteView, self).post(self, request, *args, **kwargs)
+        super(CarouselDeleteView, self).post(request, *args, **kwargs)
         return JsonResponse({'state': 'success'})

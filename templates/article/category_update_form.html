@@ -1,0 +1,46 @@
+{% extends 'website/backend/settings/settings_base.html' %}
+
+{% block option-title %}
+    更新文章分类
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-12">
+        <form class="form-horizontal" id="data-form">
+            <div class="form-group">
+                <label for="name" class="col-sm-3 col-sm-offset-2 control-label">名称：</label>
+                <div class="col-sm-3">
+                    <input type="text" id="name" name="name" class="form-control" required value="{{ category.name }}">
+                </div>
+            </div>
+            <button class="btn btn-info" id="submit-btn">更新</button>
+        </form>
+    </div>
+    {% include 'utils/modal.html' %}
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $('#submit-btn').click(function(e){
+            e.preventDefault();
+            var options = {
+                type:"POST",
+                dataType:'json',
+                url:'{% url "category-update" category.pk %}',
+                success:function(data){
+                    var state = data.state;
+                        if(state == 'success'){
+                            showModal('success', "更新成功");
+                        } else {
+                            showModal('danger', "更新失败");
+                        }
+                },
+                error:function(data){
+                    console.log(data);
+                }
+            };
+            $('#data-form').ajaxSubmit(options);
+        });
+    </script>
+
+{% endblock %}
