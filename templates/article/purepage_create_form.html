@@ -1,0 +1,62 @@
+{% extends 'website/backend/settings/settings_base.html' %}
+
+{% block option-title %}
+    添加静态页面
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-12">
+        <form class="form-horizontal" id="data-form">
+            <div class="form-group">
+                <label for="title" class="col-sm-1 control-label">标题：</label>
+                <div class="col-sm-9">
+                    <input type="text" id="title" name="title" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ueditor_textarea_content" class="col-sm-1 control-label">内容：</label>
+                <div class="col-sm-9">
+                    <script id="id_content" name="content" style="display: inline-block;" type="text/plain"></script>
+                    <script type="text/javascript">
+                        var w = $('#id_content').parent().width;
+                        var server_url = '/ueditor/controller/?imagePathFormat=article/pure_page/images/%(datetime)s%(rnd)s.%(extname)s&filePathFormat=article/pure_page/files/%(datetime)s%(rnd)s.%(extname)s';
+                        var id_Content = UE.getEditor('id_content',{'initialFrameWidth': w, 'initialFrameHeight': 400, 'serverUrl': encodeURI(server_url)});
+                        id_Content.ready(function(){});
+                    </script>
+                </div>
+            </div>
+
+            <button class="btn btn-info" id="submit-btn">添加</button>
+            <input type="reset" name="reset" style="display: none;">
+        </form>
+    </div>
+    {% include 'utils/modal.html' %}
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $('#submit-btn').click(function(e){
+            e.preventDefault();
+            var options = {
+                type:"POST",
+                dataType:'json',
+                url:'{% url "pure-page-add" %}',
+                success:function(data){
+                    var state = data.state;
+                        if(state == 'success'){
+                            showModal('success', "添加成功");
+                        } else {
+                            showModal('danger', "添加失败");
+                        }
+                        $('input[type=reset]').trigger('click');
+                },
+                error:function(data){
+                    console.log(data);
+                }
+            };
+            $('#data-form').ajaxSubmit(options);
+        });
+    </script>
+
+
+{% endblock %}
