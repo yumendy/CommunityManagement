@@ -1,16 +1,9 @@
 from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect
-from navbar.models import NavItem
 from carousel.models import Carousel
-from utils.common_mixin import BaseMixin
-
-
-class FrontMixin(BaseMixin):
-    def get_context_data(self, *args, **kwargs):
-        context = super(FrontMixin, self).get_context_data(**kwargs)
-        context['nav_item_list'] = NavItem.objects.all()
-        return context
+from utils.common_mixin import BaseMixin, FrontMixin
+from article.models import Blog
 
 
 class BackMixin(BaseMixin):
@@ -30,6 +23,9 @@ class HomepageView(FrontMixin, TemplateView):
         context = super(HomepageView, self).get_context_data(*args, **kwargs)
         context['active_page'] = 'home-page'
         context['carousel_list'] = Carousel.objects.filter(on_show=True)
+        context['article_list'] = Blog.objects.order_by('-modification_time')[:5]
+        if Blog.objects.all().count() > 5:
+            context['has_more_article'] = True
         return context
 
     def get(self, request, *args, **kwargs):

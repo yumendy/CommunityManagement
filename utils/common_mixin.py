@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from CommunityManagement.external_settings import COMMUNITY_NAME, COMMUNITY_DESCRIPTION, PAGE_NUMBER
+from navbar.models import NavItem
 
 
 class BaseMixin(object):
@@ -8,6 +9,13 @@ class BaseMixin(object):
         context['COMMUNITY_NAME'] = COMMUNITY_NAME
         context['COMMUNITY_DESCRIPTION'] = COMMUNITY_DESCRIPTION
         context['PAGE_NUMBER'] = PAGE_NUMBER
+        return context
+
+
+class FrontMixin(BaseMixin):
+    def get_context_data(self, *args, **kwargs):
+        context = super(FrontMixin, self).get_context_data(**kwargs)
+        context['nav_item_list'] = NavItem.objects.all()
         return context
 
 

@@ -1,0 +1,17 @@
+{% extends 'website/frontend_base.html' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block external_head %}{% endblock %}
+
+
+{% block left %}
+    <h1 class="page-header text-center">{% if article.category %}[{{ article.category }}]{% endif %} {{ article.title }}</h1>
+    {% if article.author %}
+        <h4 class="text-center text-info">{{ article.modification_time|date:"Y-m-d" }}&nbsp;{{ article.modification_time|time:"H:i" }}&nbsp;&nbsp;{{ article.author }}</h4>
+    {% endif %}
+    {{ article.content|safe }}
+{% endblock %}
+
+
+{% block js %}{% endblock %}

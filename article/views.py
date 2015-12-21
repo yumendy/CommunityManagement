@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
 from article.models import Category, Blog, PurePage
-from utils.common_mixin import AjaxableResponseMixin, BaseMixin
+from utils.common_mixin import AjaxableResponseMixin, BaseMixin, FrontMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.http import JsonResponse, Http404
+from CommunityManagement.external_settings import PAGE_NUMBER
 
 
 class CategoryCreateView(AjaxableResponseMixin, CreateView):
@@ -122,6 +123,19 @@ class BlogDeleteView(AjaxableResponseMixin, DeleteView):
         return JsonResponse({'state': 'success'})
 
 
+class BlogDetailView(FrontMixin, DetailView):
+    model = Blog
+    context_object_name = 'article'
+    template_name = 'article/article_detail.html'
+
+
+class BlogListView(FrontMixin, ListView):
+    model = Blog
+    context_object_name = 'article_list'
+    template_name = 'article/article_list.html'
+    paginate_by = PAGE_NUMBER
+
+
 class PurePageCreateView(AjaxableResponseMixin, CreateView):
     model = PurePage
     template_name_suffix = '_create_form'
@@ -167,5 +181,7 @@ class PurePageListView(BaseMixin, ListView):
         return context
 
 
-class PurePageDetailView(DetailView):
-    pass
+class PurePageDetailView(FrontMixin, DetailView):
+    model = PurePage
+    context_object_name = 'article'
+    template_name = 'article/article_detail.html'

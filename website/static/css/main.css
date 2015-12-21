@@ -21,8 +21,24 @@ body {
     color: white;
 }
 
+.base-footer {
+    margin-top: 50px;
+}
+
 .slider-img {
     width: 100%;
     height: auto;
     max-height: 400px;
+}
+
+.left-content  img{
+    width: 100%;
+}
+
+.left-content {
+    margin-top: 50px;
+}
+
+.right-content {
+    margin-top: 50px;
 }

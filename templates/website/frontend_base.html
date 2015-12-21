@@ -7,7 +7,21 @@
 {% block body %}
 {% include 'website/header.html' %}
     <div class="main-page">
-        {% block content %}{% endblock %}
+        {% if carousel_list %}
+            <div class="container-fluid">
+                {% include 'carousel/carousel_weight.html' %}
+            </div>
+        {% endif %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 left-content">
+                    {% block left %}{% endblock %}
+                </div>
+                <div class="col-md-3 right-content">
+                    {% include "website/right_sidebar.html" %}
+                </div>
+            </div>
+        </div>
     </div>
 {% include 'website/footer.html' %}
 {% endblock %}

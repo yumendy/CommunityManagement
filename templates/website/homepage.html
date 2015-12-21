@@ -4,8 +4,13 @@
     {{ COMMUNITY_NAME }}
 {% endblock %}
 
-{% block content %}
-    <div class="container-fluid">
-        {% include 'carousel/carousel_weight.html' %}
+{% block left %}
+    <div class="row">
+        <div class="col-md-6">
+            {% include 'article/article_weight.html' %}
+        </div>
+        <div class="col-md-6">
+
+        </div>
     </div>
 {% endblock %}
