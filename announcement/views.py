@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
 from utils.common_mixin import AjaxableResponseMixin, BaseMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView

@@ -1,0 +1,59 @@
+{% extends 'website/backend/settings/settings_base.html' %}
+
+{% block option-title %}
+    部门列表
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-12">
+        <table class="table table-hover table-responsive table-condensed dashboard-table">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>名称</th>
+                    <th>动作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in department_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>
+                            <a href="{% url 'department-update' item.pk %}" class="btn btn-warning" role="button">修改</a>
+                            &emsp;
+                            <button class="btn btn-danger" role="button" data-id="{{ item.id }}">删除</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'utils/modal.html' %}
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $('.btn-danger').on('click',
+            function (e) {
+                e.preventDefault();
+                var dom_item = this;
+                $.ajax({
+                    type:"POST",
+                    dataType:'json',
+                    data:{},
+                    url:'{% url "department-delete" 00 %}'.replace('0', this.dataset['id']),
+                    success:function(data){
+                        var state = data.state;
+                        if(state == 'success'){
+                            dom_item.parentElement.parentElement.setAttribute('hidden','');
+                            showModal('success', "删除成功！")
+                        }
+                    },
+                    error:function(data){
+                        alert(data);
+                    }
+                });
+            })
+    </script>
+{% endblock %}

@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'DjangoUeditor',
     'announcement.apps.AnnouncementConfig',
     'link.apps.LinkConfig',
+    'authentication.apps.AuthConfig',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -63,8 +64,7 @@ ROOT_URLCONF = 'CommunityManagement.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

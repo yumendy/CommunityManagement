@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^article/', include('article.urls')),
     url(r'^announcement/', include('announcement.urls')),
     url(r'^link/', include('link.urls')),
+    url(r'^authentication/', include('authentication.urls')),
     url(r'', include('website.urls')),
 ]
 
