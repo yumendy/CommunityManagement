@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'carousel',
     'article',
     'DjangoUeditor',
+    'announcement.apps.AnnouncementConfig',
 )
 
 MIDDLEWARE_CLASSES = (

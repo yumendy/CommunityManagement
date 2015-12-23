@@ -1,0 +1,47 @@
+{% extends 'website/backend/settings/settings_base.html' %}
+
+{% block option-title %}
+    更新公告
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-12">
+        <form class="form-horizontal" id="data-form">
+            <div class="form-group">
+                <label for="content" class="col-sm-3 col-sm-offset-2 control-label">内容：</label>
+                <div class="col-sm-3">
+                    <textarea name="content" id="content" rows="5" wrap="hard" class="col-md-12">{{ announcement.content }}</textarea>
+                </div>
+            </div>
+            <button class="btn btn-info" id="submit-btn">更新</button>
+        </form>
+    </div>
+    {% include 'utils/modal.html' %}
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $('#submit-btn').click(function (e) {
+            e.preventDefault();
+            if('' != $('#content').val()) {
+                $.ajax({
+                    type: "POST",
+                    dataType: 'json',
+                    data: $('#data-form').serializeArray(),
+                    url:'{% url "announcement-update" announcement.id %}',
+                    success:function(data){
+                        var state = data.state;
+                        if(state == 'success'){
+                            showModal('success', "更新成功");
+                        } else {
+                            showModal('danger', "更新失败");
+                        }
+                    },
+                    error: function(data){
+                        console.log(data);
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}

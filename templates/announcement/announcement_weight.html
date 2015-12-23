@@ -1,0 +1,18 @@
+<div class="panel-group" role="tablist" aria-multiselectable="true" id="announcement-list">
+    {% for item in announcement_list %}
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="heading-{{ forloop.counter }}">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#announcement-list" href="#collapse-{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse-{{ forloop.counter }}">
+                      公告-{{ item.content|truncatechars:15 }}
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse-{{ forloop.counter }}" class="panel-collapse collapse {% if forloop.first %}in{% endif %}" role="tabpanel" aria-labelledby="heading-{{ forloop.counter }}">
+                <div class="panel-body">
+                    {{ item.content }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

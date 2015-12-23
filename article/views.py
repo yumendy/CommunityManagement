@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
 from article.models import Category, Blog, PurePage
 from utils.common_mixin import AjaxableResponseMixin, BaseMixin, FrontMixin
@@ -127,6 +126,12 @@ class BlogDetailView(FrontMixin, DetailView):
     model = Blog
     context_object_name = 'article'
     template_name = 'article/article_detail.html'
+
+    def get_object(self, queryset=None):
+        obj = super(BlogDetailView, self).get_object()
+        obj.show_times += 1
+        obj.save()
+        return obj
 
 
 class BlogListView(FrontMixin, ListView):
