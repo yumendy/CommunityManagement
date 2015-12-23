@@ -1,0 +1,10 @@
+<div class="col-md-12">
+    <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-info">友情链接</a>
+    {% for item in link_list %}
+        <a href="{{ item.url }}" class="list-group-item" target="_blank" title="{{ item.title }}">{{ item.name }}</a>
+    {% empty %}
+        <a href="#" class="list-group-item">暂无友链</a>
+    {% endfor %}
+    </div>
+</div>

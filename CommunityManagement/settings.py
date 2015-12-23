@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'article',
     'DjangoUeditor',
     'announcement.apps.AnnouncementConfig',
+    'link.apps.LinkConfig',
 )
 
 MIDDLEWARE_CLASSES = (

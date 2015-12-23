@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from CommunityManagement.external_settings import COMMUNITY_NAME, COMMUNITY_DESCRIPTION, PAGE_NUMBER
 from navbar.models import NavItem
 from announcement.models import Announcement
+from link.models import Link
 
 
 class BaseMixin(object):
@@ -18,6 +19,7 @@ class FrontMixin(BaseMixin):
         context = super(FrontMixin, self).get_context_data(**kwargs)
         context['nav_item_list'] = NavItem.objects.all()
         context['announcement_list'] = Announcement.objects.order_by('-create_time')[:3]
+        context['link_list'] = Link.objects.all()
         return context
 
 

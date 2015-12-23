@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^carousel/', include('carousel.urls')),
     url(r'^article/', include('article.urls')),
     url(r'^announcement/', include('announcement.urls')),
+    url(r'^link/', include('link.urls')),
     url(r'', include('website.urls')),
 ]
 

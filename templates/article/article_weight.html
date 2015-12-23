@@ -1,4 +1,5 @@
 <div class="col-md-12">
+    <h3 class="text-info text-center">最新动态</h3>
     <div class="list-group">
     {% for article in article_list %}
         <a href="{% url 'blog-detail' article.id %}" class="list-group-item">
