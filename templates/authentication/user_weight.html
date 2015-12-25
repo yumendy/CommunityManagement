@@ -1,0 +1,25 @@
+<div class="col-md-12">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">个人信息</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <img src="{% url 'media' myuser.photo %}" class="img-circle" width="140" height="140">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3 class="text-info"><a href="{% url 'myuser-detail' myuser.id %}">{{ myuser.user.username }}</a></h3>
+                    <p>{{ myuser.name }}</p>
+                </div>
+            </div>
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item">Email:{{ myuser.user.email }}</li>
+            <li class="list-group-item">Joined in:{{ myuser.user.date_joined|date:"Y-m-d" }}</li>
+            <li class="list-group-item">Last login:{{ myuser.user.last_login|date:"Y-m-d" }}&nbsp;{{ myuser.user.last_login|time:"H:i:s" }}</li>
+        </ul>
+    </div>
+</div>

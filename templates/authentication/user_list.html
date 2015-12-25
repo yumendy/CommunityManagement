@@ -1,0 +1,51 @@
+{% extends 'website/backend/settings/settings_base.html' %}
+
+{% block option-title %}
+    社员通讯录
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-12">
+        <table class="table table-hover table-responsive table-condensed dashboard-table">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>用户名</th>
+                    <th>姓名</th>
+                    <th>入学年份</th>
+                    <th>学号</th>
+                    <th>学院</th>
+                    <th>性别</th>
+                    <th>电话</th>
+                    <th>邮箱</th>
+                    <th>QQ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in user_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ item.user.username }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.level }}</td>
+                        <td>{{ item.student_id }}</td>
+                        <td>{{ item.college }}</td>
+                        <td>
+                            {% if item.sex == 'M' %}
+                                男
+                            {% else %}
+                                女
+                            {% endif %}
+                        </td>
+                        <td>{{ item.tel }}</td>
+                        <td>{{ item.user.email }}</td>
+                        <td>{{ item.qq }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% include 'utils/pagination.html' %}
+    </div>
+{% endblock %}
+
+{% block js %}{% endblock %}

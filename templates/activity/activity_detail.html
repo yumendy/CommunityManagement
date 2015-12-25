@@ -1,0 +1,41 @@
+{% extends 'website/frontend_base.html' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block external_head %}{% endblock %}
+
+
+{% block left %}
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">活动详情</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h1>{{ activity.title }}</h1>
+                        <h4>活动地点：{{ activity.address }}</h4>
+                        <h4>开始时间：{{ activity.start_time|date:"Y-m-d " }}{{ activity.start_time|time:"H:i:s" }}</h4>
+                        <h4>结束时间：{{ activity.closing_time|date:"Y-m-d " }}{{ activity.closing_time|time:"H:i:s" }}</h4>
+                        <h4>报名截止：{{ activity.entry_closing_time|date:"Y-m-d " }}{{ activity.entry_closing_time|time:"H:i:s" }}</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="text-info">活动介绍：</h3>
+                        {{ activity.content|safe }}
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-md-12 text-center">
+                        <a href="{% url 'actor-add' activity.id %}" class="btn btn-primary btn-lg">活动报名</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block js %}{% endblock %}

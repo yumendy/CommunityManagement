@@ -1,56 +1,41 @@
-{% extends 'website/frontend_base.html' %}
+{% extends 'website/backend/dashboard/dashboard_base.html' %}
 
-{% block title %}加入我们{% endblock %}
+{% block option-title %}更新信息{% endblock %}
 
-{% block external_head %}{% endblock %}
-
-
-{% block left %}
+{% block content %}
     <div class="col-md-12">
-        <h3 class="text-center text-info">加入我们</h3>
+        <h3 class="text-center text-info">更新信息</h3>
         <div class="col-md-6 col-md-offset-3">
             <form class="form-horizontal" method="post" id="data-form" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="username" class="col-sm-3 control-label">用户名:</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="username" name="username" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="password" class="col-sm-3 control-label">密码:</label>
-                    <div class="col-sm-9">
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="repeat-password" class="col-sm-3 control-label">重复密码:</label>
-                    <div class="col-sm-9">
-                        <input type="password" class="form-control" id="repeat-password" name="repeat-password" required>
+                        <input type="text" class="form-control" id="username" name="username" disabled value="{{ myuser.user.username }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="name" class="col-sm-3 control-label">姓名:</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="name" name="name" required>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ myuser.name }}" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="student_id" class="col-sm-3 control-label">学号:</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="student_id" name="student_id" required>
+                        <input type="text" class="form-control" id="student_id" name="student_id" value="{{ myuser.student_id }}" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="college" class="col-sm-3 control-label">学院:</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="college" name="college" required>
+                        <input type="text" class="form-control" id="college" name="college" value="{{ myuser.college }}" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="level" class="col-sm-3 control-label">入学年份:</label>
                     <div class="col-sm-9">
-                        <input type="number" class="form-control" id="level" name="level" required>
+                        <input type="number" class="form-control" id="level" name="level" value="{{ myuser.level }}" required>
                     </div>
                 </div>
                 <div class="form-group">
@@ -58,11 +43,11 @@
                     <div class="col-sm-9">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="sex" value="M" checked>
+                                <input type="radio" name="sex" value="M" {% if myuser.sex == 'M' %}checked{% endif %}>
                                 男
                             </label>
                             <label>
-                                <input type="radio" name="sex" value="F">
+                                <input type="radio" name="sex" value="F" {% if myuser.sex == 'F' %}checked{% endif %}>
                                 女
                             </label>
                         </div>
@@ -71,26 +56,26 @@
                 <div class="form-group">
                     <label for="birthday" class="col-sm-3 control-label">生日:</label>
                     <div class="col-sm-9">
-                        <input type="date" class="form-control" id="birthday" name="birthday">
+                        <input type="date" class="form-control" id="birthday" name="birthday" value="{{ myuser.birthday|date:"Y-m-d" }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="email" class="col-sm-3 control-label">E-mail:</label>
                     <div class="col-sm-9">
-                        <input type="email" class="form-control" id="email" name="email" required>
+                        <input type="email" class="form-control" id="email" name="email" required value="{{ myuser.user.email }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="tel" class="col-sm-3 control-label">电话:</label>
                     <div class="col-sm-9">
-                        <input type="tel" class="form-control" id="tel" name="tel" required>
+                        <input type="tel" class="form-control" id="tel" name="tel" required value="{{ myuser.tel }}">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="is_public_tel" value="True" checked>
+                                <input type="radio" name="is_public_tel" value="True" {% if myuser.is_public_tel == True %}checked{% endif %}>
                                 对社内公开
                             </label>
                             <label>
-                                <input type="radio" name="is_public_tel" value="">
+                                <input type="radio" name="is_public_tel" value="" {% if myuser.is_public_tel != True %}checked{% endif %}>
                                 不公开（仅管理员可见）
                             </label>
                         </div>
@@ -99,14 +84,14 @@
                 <div class="form-group">
                     <label for="qq" class="col-sm-3 control-label">QQ:</label>
                     <div class="col-sm-9">
-                        <input type="number" class="form-control" id="qq" name="qq">
+                        <input type="number" class="form-control" id="qq" name="qq" value="{{ myuser.qq }}">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="is_public_qq" value="True" checked>
+                                <input type="radio" name="is_public_qq" value="True" {% if myuser.is_public_qq == True %}checked{% endif %}>
                                 对社内公开
                             </label>
                             <label>
-                                <input type="radio" name="is_public_qq" value="">
+                                <input type="radio" name="is_public_qq" value="" {% if myuser.is_public_qq != True %}checked{% endif %}>
                                 不公开（仅管理员可见）
                             </label>
                         </div>
@@ -115,18 +100,19 @@
                 <div class="form-group">
                     <label for="description" class="col-sm-3 control-label">个人简介：</label>
                     <div class="col-sm-9">
-                        <textarea name="description" id="description" rows="5" wrap="hard" class="col-md-12 form-control"></textarea>
+                        <textarea name="description" id="description" rows="5" wrap="hard" class="col-md-12 form-control">{{ myuser.description }}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="photo" class="col-sm-3 control-label">头像:</label>
                     <div class="col-sm-9">
-                        <input type="file" class="form-control" id="photo" name="photo" required>
+                        <input type="file" class="form-control" id="photo" name="photo" value="{{ myuser.photo }}">
+                        <span class="help-block" id="helpBlock">当前图片：<a href="{% url 'media' myuser.photo %}">{% url 'media' myuser.photo %}</a>,不做修改则上空留空。</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-3">
-                        <button type="button" class="btn btn-primary" id="submit-btn">提交</button>
+                        <button type="submit" class="btn btn-primary" id="submit-btn">提交</button>
                     </div>
                     <div class="col-sm-offset-3 col-sm-3">
                         <button type="reset" class="btn btn-warning">重置</button>
@@ -135,21 +121,8 @@
             </form>
         </div>
     </div>
-    {% include 'utils/modal.html' %}
 {% endblock %}
 
 
 {% block js %}
-    <script type="text/javascript">
-        var password = $('#password');
-        var repeat_password = $('#repeat-password');
-        $('#submit-btn').on('click', function(e) {
-            e.preventDefault();
-            if (password.val() == repeat_password.val()) {
-                $('#data-form').submit();
-            } else {
-                showModal('danger', "密码不匹配，请重新输入");
-            }
-        })
-    </script>
 {% endblock %}

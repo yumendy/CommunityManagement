@@ -1,6 +1,8 @@
 <ul class="nav nav-sidebar">
     <li id="overview"><a href="{% url 'settings' %}">总览</a></li>
 </ul>
+{% include 'authentication/myuser_setting_nav.html' %}
+{% include 'activity/activity_settings_nav.html' %}
 {% include 'navbar/navbar_settings_nav.html' %}
 {% include 'carousel/carousel_settings_nav.html' %}
 {% include 'announcement/announcement_settings_nav.html' %}

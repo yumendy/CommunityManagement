@@ -1,0 +1,75 @@
+{% extends 'website/backend/settings/settings_base.html' %}
+
+{% block option-title %}
+    活动列表
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-12">
+        <table class="table table-hover table-responsive table-condensed dashboard-table">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>活动名称</th>
+                    <th>负责人</th>
+                    <th>地点</th>
+                    <th>开始时间</th>
+                    <th>结束时间</th>
+                    <th>报名截止时间</th>
+                    <th>报名人数</th>
+                    <th>动作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in activity_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.responsible_user.myuser.name }}</td>
+                        <td>{{ item.address }}</td>
+                        <td>{{ item.start_time|date:"Y-m-d " }}{{ item.start_time|time:"H:i:s" }}</td>
+                        <td>{{ item.closing_time|date:"Y-m-d " }}{{ item.closing_time|time:"H:i:s" }}</td>
+                        <td>{{ item.entry_closing_time|date:"Y-m-d " }}{{ item.entry_closing_time|time:"H:i:s" }}</td>
+                        <td>{{ item.actor_number }}</td>
+                        <td>
+                            <a href="{% url 'activity-detail' item.pk %}" class="btn btn-info" role="button">详情</a>
+                            &emsp;
+                            <a href="{% url 'actor-list' item.id %}" class="btn btn-primary" role="button">报名详情</a>
+                            &emsp;
+                            <a href="{% url 'activity-update' item.pk %}" class="btn btn-warning" role="button">修改</a>
+                            &emsp;
+                            <button class="btn btn-danger" role="button" data-id="{{ item.id }}">删除</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'utils/modal.html' %}
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $('.btn-danger').on('click',
+            function (e) {
+                e.preventDefault();
+                var dom_item = this;
+                $.ajax({
+                    type:"POST",
+                    dataType:'json',
+                    data:{},
+                    url:'{% url "activity-delete" 00 %}'.replace('0', this.dataset['id']),
+                    success:function(data){
+                        var state = data.state;
+                        if(state == 'success'){
+                            dom_item.parentElement.parentElement.setAttribute('hidden','');
+                            showModal('success', "删除成功！")
+                        }
+                    },
+                    error:function(data){
+                        alert(data);
+                    }
+                });
+            })
+    </script>
+{% endblock %}

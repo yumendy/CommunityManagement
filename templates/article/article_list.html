@@ -6,17 +6,24 @@
 
 
 {% block left %}
-    <table class="table table-hover">
-        <tbody>
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">动态列表</h3>
+            </div>
+            <div class="list-group">
             {% for article in article_list %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td><a href="{% url 'blog-detail' article.id %}">[{{ article.category }}]{{ article.title }}</a><p class="text-right">{{ article.modification_time|date:"Y-m-d" }}&nbsp;{{ article.modification_time|time:"H:i" }}</p></td>
-                </tr>
+                <a href="{% url 'blog-detail' article.id %}" class="list-group-item">
+                    <h4 class="list-group-item-heading">[{{ article.category }}]{{ article.title }}</h4>
+                    <p class="list-group-item-text">{{ article.author }}</p>
+                    <p class="list-group-item-text text-info">{{ article.modification_time|date:"Y-m-d" }}&nbsp;{{ article.modification_time|time:"H:i" }}</p>
+                </a>
             {% endfor %}
-        </tbody>
-    </table>
-    {% include 'utils/pagination.html' %}
+            {% include 'utils/pagination.html' %}
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 

@@ -1,0 +1,19 @@
+<div class="col-md-12">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">最新活动</h3>
+        </div>
+        <div class="list-group">
+        {% for activity in activity_list %}
+            <a href="{% url 'activity-detail' activity.id %}" class="list-group-item">
+                <h4 class="list-group-item-heading">{{ activity.title }}</h4>
+                <p class="list-group-item-text">地点：{{ activity.address }}</p>
+                <p class="list-group-item-text text-info">开始时间：{{ activity.start_time|date:"Y-m-d" }}&nbsp;{{ activity.start_time|time:"H:i:s" }}</p>
+            </a>
+        {% endfor %}
+        {% if has_more_activity %}
+            <a href="{% url 'activity-list' %}" class="list-group-item text-right">更多...</a>
+        {% endif %}
+        </div>
+    </div>
+</div>

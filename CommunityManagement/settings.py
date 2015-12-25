@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'announcement.apps.AnnouncementConfig',
     'link.apps.LinkConfig',
     'authentication.apps.AuthConfig',
+    'activity.apps.ActivityConfig',
 )
 
 MIDDLEWARE_CLASSES = (

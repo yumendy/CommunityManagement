@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from carousel.models import Carousel
 from utils.common_mixin import BaseMixin, FrontMixin
 from article.models import Blog
+from activity.models import Activity
 
 
 class BackMixin(BaseMixin):
@@ -24,8 +25,11 @@ class HomepageView(FrontMixin, TemplateView):
         context['active_page'] = 'home-page'
         context['carousel_list'] = Carousel.objects.filter(on_show=True)
         context['article_list'] = Blog.objects.order_by('-modification_time')[:5]
-        if Blog.objects.all().count() > 5:
+        if Blog.objects.count() > 5:
             context['has_more_article'] = True
+        context['activity_list'] = Activity.objects.order_by('-start_time')
+        if Activity.objects.count() > 5:
+            context['has_more_activity'] = True
         return context
 
     def get(self, request, *args, **kwargs):

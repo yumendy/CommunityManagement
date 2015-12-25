@@ -17,7 +17,7 @@ class MyUser(models.Model):
     sex = models.CharField(max_length=1, choices=SEX_CHOICE)
     level = models.SmallIntegerField()
     birthday = models.DateField()
-    qq = models.CharField(max_length=32)
+    qq = models.CharField(max_length=32, blank=True)
     is_public_qq = models.BooleanField(default=False)
     description = models.TextField(blank=True, null=True)
     photo = models.ImageField(upload_to='./user/photo/%Y/%m/%d/')

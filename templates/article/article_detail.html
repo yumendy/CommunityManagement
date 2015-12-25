@@ -6,11 +6,28 @@
 
 
 {% block left %}
-    <h1 class="page-header text-center">{% if article.category %}[{{ article.category }}]{% endif %} {{ article.title }}</h1>
-    {% if article.author %}
-        <h4 class="text-center text-info">{{ article.modification_time|date:"Y-m-d" }}&nbsp;{{ article.modification_time|time:"H:i" }}&nbsp;&nbsp;{{ article.author }}</h4>
-    {% endif %}
-    {{ article.content|safe }}
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">正文</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h1>{% if article.category %}[{{ article.category }}]{% endif %} {{ article.title }}</h1>
+                        {% if article.author %}
+                            <h4 class="text-center text-info">{{ article.modification_time|date:"Y-m-d" }}&nbsp;{{ article.modification_time|time:"H:i" }}&nbsp;&nbsp;{{ article.author }}</h4>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ article.content|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 

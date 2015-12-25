@@ -1,12 +1,11 @@
 <div class="col-md-12">
-    <h3 class="text-info text-center">公告</h3>
     <div class="panel-group" role="tablist" aria-multiselectable="true" id="announcement-list">
         {% for item in announcement_list %}
             <div class="panel panel-warning">
                 <div class="panel-heading" role="tab" id="heading-{{ forloop.counter }}">
                     <h4 class="panel-title">
                         <a role="button" data-toggle="collapse" data-parent="#announcement-list" href="#collapse-{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse-{{ forloop.counter }}">
-                          公告-{{ item.content|truncatechars:10 }}
+                          公告
                         </a>
                     </h4>
                 </div>

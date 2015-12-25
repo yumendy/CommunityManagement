@@ -1,0 +1,57 @@
+{% extends 'website/backend/settings/settings_base.html' %}
+
+{% block option-title %}
+    成员详情
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-12">
+        <div class="row text-left">
+            <div class="col-md-4 col-md-offset-2">
+                <ul class="list-unstyled">
+                    <li>
+                        姓名：{{ user.name }}
+                    </li>
+                    <li>
+                        学号：{{ user.student_id }}
+                    </li>
+                    <li>
+                        学院：{{ user.college }}
+                    </li>
+                    <li>
+                        入学年份：{{ user.level }}
+                    </li>
+                    <li>
+                        性别：{% if user.sex == 'M' %}男{% else %}女{% endif %}
+                    </li>
+                    <li>
+                        生日：{{ user.birthday|date:"Y-m-d" }}
+                    </li>
+                    <li>
+                        E-mail：{{ user.user.email }}
+                    </li>
+                    <li>
+                        电话：{{ user.tel }}
+                    </li>
+                    <li>
+                        QQ：{{ user.qq }}
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <img alt="140x140" src="{% url 'media' user.photo %}" class="img-circle"  height="140" width="140"/>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 50px;">
+            <div class="col-md-12">
+                <h4>个人简介</h4>
+                <p>
+                   {{ user.description }}
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

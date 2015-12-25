@@ -3,6 +3,7 @@ from CommunityManagement.external_settings import COMMUNITY_NAME, COMMUNITY_DESC
 from navbar.models import NavItem
 from announcement.models import Announcement
 from link.models import Link
+from activity.models import Activity
 
 
 class BaseMixin(object):
@@ -14,12 +15,45 @@ class BaseMixin(object):
         return context
 
 
-class FrontMixin(BaseMixin):
+class NavMixin(object):
+    def get_context_data(self, *args, **kwargs):
+        context = super(NavMixin, self).get_context_data(**kwargs)
+        context['nav_item_list'] = NavItem.objects.all()
+        return context
+
+
+class AnnouncementMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(AnnouncementMixin, self).get_context_data(**kwargs)
+        context['announcement_list'] = Announcement.objects.order_by('-create_time')[:3]
+        return context
+
+
+class LinkMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(LinkMixin, self).get_context_data(**kwargs)
+        context['link_list'] = Link.objects.all()
+        return context
+
+
+class UserMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(UserMixin, self).get_context_data(**kwargs)
+        if self.request.user.is_authenticated():
+            context['myuser'] = self.request.user.myuser
+        return context
+
+
+class ActivityMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(ActivityMixin, self).get_context_data(**kwargs)
+        context['activity_list'] = Activity.objects.order_by('-start_time')
+        return context
+
+
+class FrontMixin(BaseMixin, NavMixin, AnnouncementMixin, LinkMixin, UserMixin):
     def get_context_data(self, *args, **kwargs):
         context = super(FrontMixin, self).get_context_data(**kwargs)
-        context['nav_item_list'] = NavItem.objects.all()
-        context['announcement_list'] = Announcement.objects.order_by('-create_time')[:3]
-        context['link_list'] = Link.objects.all()
         return context
 
 

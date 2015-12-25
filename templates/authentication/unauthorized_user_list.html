@@ -1,0 +1,97 @@
+{% extends 'website/backend/settings/settings_base.html' %}
+
+{% block option-title %}
+    未授权用户列表
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-12">
+        <table class="table table-hover table-responsive table-condensed dashboard-table">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>用户名</th>
+                    <th>姓名</th>
+                    <th>学号</th>
+                    <th>学院</th>
+                    <th>性别</th>
+                    <th>动作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in user_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ item.user.username }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.student_id }}</td>
+                        <td>{{ item.college }}</td>
+                        <td>
+                            {% if item.sex == 'M' %}
+                                男
+                            {% else %}
+                                女
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'myuser-detail' item.pk %}" class="btn btn-info" role="button">详情</a>
+                            &emsp;
+                            <a href="{% url 'myuser-update' item.pk %}" class="btn btn-warning" role="button">修改</a>
+                            &emsp;
+                            <button class="btn btn-success" role="button" data-id="{{ item.id }}">通过</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% include 'utils/pagination.html' %}
+    </div>
+    {% include 'utils/modal.html' %}
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $('.btn-success').on('click', function(e) {
+            e.preventDefault();
+            var dom_item = this;
+            $.ajax({
+                type:"POST",
+                dataType:'json',
+                data:{},
+                url:'{% url "myuser-authorize" 00 %}'.replace('0', this.dataset['id']),
+                success:function(data){
+                    var state = data.state;
+                    if(state == 'success'){
+                        dom_item.parentElement.parentElement.setAttribute('hidden','');
+                        showModal('success', "通过成功！")
+                    }
+                },
+                error:function(data){
+                    alert(data);
+                }
+            });
+        });
+
+        $('.btn-danger').on('click',
+            function (e) {
+                e.preventDefault();
+                var dom_item = this;
+                $.ajax({
+                    type:"POST",
+                    dataType:'json',
+                    data:{},
+                    url:'{% url "myuser-delete" 00 %}'.replace('0', this.dataset['id']),
+                    success:function(data){
+                        var state = data.state;
+                        if(state == 'success'){
+                            dom_item.parentElement.parentElement.setAttribute('hidden','');
+                            showModal('success', "删除成功！")
+                        }
+                    },
+                    error:function(data){
+                        alert(data);
+                    }
+                });
+            })
+    </script>
+{% endblock %}
