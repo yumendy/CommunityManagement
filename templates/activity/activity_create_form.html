@@ -8,13 +8,13 @@
     <div class="col-md-12">
         <form class="form-horizontal" id="data-form">
             <div class="form-group">
-                <label for="title" class="col-sm-1 control-label">标题：</label>
+                <label for="title" class="col-sm-2 control-label">标题：</label>
                 <div class="col-sm-9">
                     <input type="text" id="title" name="title" class="form-control" required>
                 </div>
             </div>
             <div class="form-group">
-                <label for="responsible_user" class="col-sm-1 control-label">负责人：</label>
+                <label for="responsible_user" class="col-sm-2 control-label">负责人：</label>
                 <div class="col-sm-9">
                     <select name="responsible_user" id="responsible_user" class="form-control">
                         {% for user in user_list %}
@@ -24,31 +24,31 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="address" class="col-sm-1 control-label">地点：</label>
+                <label for="address" class="col-sm-2 control-label">地点：</label>
                 <div class="col-sm-9">
                     <input type="text" id="address" name="address" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label for="start_time" class="col-sm-1 control-label">开始时间：</label>
+                <label for="start_time" class="col-sm-2 control-label">开始时间：</label>
                 <div class="col-sm-9">
                     <input type="datetime-local" id="start_time" name="start_time" class="form-control" required>
                 </div>
             </div>
             <div class="form-group">
-                <label for="closing_time" class="col-sm-1 control-label">结束时间：</label>
+                <label for="closing_time" class="col-sm-2 control-label">结束时间：</label>
                 <div class="col-sm-9">
                     <input type="datetime-local" id="closing_time" name="closing_time" class="form-control" required>
                 </div>
             </div>
             <div class="form-group">
-                <label for="entry_closing_time" class="col-sm-1 control-label">报名截止：</label>
+                <label for="entry_closing_time" class="col-sm-2 control-label">报名截止：</label>
                 <div class="col-sm-9">
                     <input type="datetime-local" id="entry_closing_time" name="entry_closing_time" class="form-control" required>
                 </div>
             </div>
             <div class="form-group">
-                <label for="ueditor_textarea_content" class="col-sm-1 control-label">简介：</label>
+                <label for="ueditor_textarea_content" class="col-sm-2 control-label">简介：</label>
                 <div class="col-sm-9">
                     <script id="id_content" name="content" style="display: inline-block;" type="text/plain"></script>
                     <script type="text/javascript">
